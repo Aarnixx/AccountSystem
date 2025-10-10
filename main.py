@@ -5,8 +5,14 @@ from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-key = os.getenv("FERNET_KEY").encode()
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(dotenv_path=env_path)
+
+env_key = os.getenv("FERNET_KEY")
+if not env_key:
+    raise EnvironmentError(f"FERNET_KEY not found in {env_path}")
+key = env_key.encode()
+
 data = r"C:\Coding\Python\AccountSystem\EncryptedData"
 
 class MyWindow(QWidget):
