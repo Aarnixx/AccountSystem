@@ -2,14 +2,16 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QLabel, QPushButton
 from PyQt5.QtGui import QIcon
 from cryptography.fernet import Fernet
+from dotenv import load_dotenv
 import os
 
-key = b"LWwpP01kXyb8A22X7ncj2MDWPPKj1gwshnrvW_r6lKY="
-data = r"C:\Users\aarni.annanolli\Coding\Python\Database\EncryptedData"
+load_dotenv()
+key = os.getenv("FERNET_KEY").encode()
+data = r"C:\Coding\Python\AccountSystem\EncryptedData"
 
 class MyWindow(QWidget):
-    closed_eye_icon = r"C:\Users\aarni.annanolli\Coding\Python\Database\Images\ClosedEye.png"
-    open_eye_icon = r"C:\Users\aarni.annanolli\Coding\Python\Database\Images\OpenEye.png"
+    closed_eye_icon = r"C:\Coding\Python\AccountSystem\Images\ClosedEye.png"
+    open_eye_icon = r"C:\Coding\Python\AccountSystem\Images\OpenEye.png"
     revealed = False
 
     def __init__(self):
@@ -58,7 +60,6 @@ class MyWindow(QWidget):
         self.register.setText("Register")
         self.register.move(305, 280)
         self.register.resize(100, 40)
-
 
     def toggle_password_visibility(self):
         self.revealed = not self.revealed
@@ -141,7 +142,6 @@ class MyWindow(QWidget):
             self.password.setText("")
             self.label_0.setText("Username already registered")
             self.label_0.move(235, 20)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
